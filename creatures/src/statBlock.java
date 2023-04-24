@@ -1,6 +1,12 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 public class statBlock {
+    public Map<stats, Integer> abilityScores;
+    public Map<stats, Integer> abilityModifiers;
+    public Map<stats, Integer> savingThrows;
+    public Map<skills, Integer> skillsModifiers;
+
     //Abilities --------------------------------------------------------
     public int strength;
     public int strMod;
@@ -67,7 +73,7 @@ public class statBlock {
      * @param CON constitution score
      * @param INT intelligence score
      * @param WIS wisdom score
-     * @param CHA charsma score
+     * @param CHA charisma score
      */
     public statBlock(int STR, int DEX, int CON, int INT, int WIS, int CHA) {
         this.strength = STR;
@@ -84,7 +90,7 @@ public class statBlock {
     //Auxiliary methods ------------------------------------------------
 
     /**
-     * Calculates de modifiers for every ability, saving throw and skill using the pre-existing ability scores.
+     * Calculates modifiers for every ability, saving throw and skill using the pre-existing ability scores.
      * Doesn't take proficiency into account.
      */
     public void setMods() {
@@ -133,7 +139,7 @@ public class statBlock {
     }
 
     /**
-     * Uses the method of "roll 4d6, drop the lowest" to determine ability scores
+     * Uses the method of "roll 4d6, drop the lowest" to determine a score
      *
      * @return an int in the range of 3 to 18
      */
