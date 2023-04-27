@@ -1,3 +1,3 @@
-public enum stats {
+public enum abilities {
     STRENGHT, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA
 }
