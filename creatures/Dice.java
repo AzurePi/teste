@@ -1,4 +1,4 @@
-public class dice {
+public class Dice {
 
     public static int d(int x) {
         return (int) (Math.random() * x);

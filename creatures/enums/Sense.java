@@ -1,3 +1,5 @@
-public enum sense {
+package enums;
+
+public enum Sense {
     BLINDSIGHT, DARKVISION, PASSIVE_PERCEPTION, TREMORSENSE, TRUESIGHT
 }

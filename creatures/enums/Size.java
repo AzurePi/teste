@@ -1,3 +1,5 @@
-public enum size {
+package enums;
+
+public enum Size {
     TINY, SMALL, MEDIUM, LARGE, HUGE, GARGANTUAN
 }
