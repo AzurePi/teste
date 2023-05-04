@@ -1,5 +1,5 @@
 package enums;
 
 public enum Alignment1 {
-    LAWFUL, NEUTRAL, EVIL
+    LAWFUL, NEUTRAL, CHAOTIC
 }
