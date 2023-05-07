@@ -1,5 +1,31 @@
 package enums;
 
+/**
+ * The enum Abilities.
+ */
 public enum Abilities {
-    STRENGHT, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA
+    /**
+     * Strenght abilities.
+     */
+    STRENGHT,
+    /**
+     * Dexterity abilities.
+     */
+    DEXTERITY,
+    /**
+     * Constitution abilities.
+     */
+    CONSTITUTION,
+    /**
+     * Intelligence abilities.
+     */
+    INTELLIGENCE,
+    /**
+     * Wisdom abilities.
+     */
+    WISDOM,
+    /**
+     * Charisma abilities.
+     */
+    CHARISMA
 }

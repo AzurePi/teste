@@ -52,7 +52,8 @@ public class StatBlock {
         setMods();
     }
 
-    //setters & getters
+
+    //Setters & Getters --------------------------------------------------------
     public HashMap<Abilities, Integer> getAbilityScores() {
         return abilityScores;
     }

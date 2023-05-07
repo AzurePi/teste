@@ -4,24 +4,21 @@ import exceptions.InvalidCreatureSizeException;
 import exceptions.InvalidCreatureTypeException;
 import exceptions.InvalidSenseException;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Creature extends StatBlock {
     String name;
-    private Size creatureSize;
-    private Type creatureType;
-    //private ArrayList<Tag> creatureTags = new ArrayList<>(); //too much work!
+    private Size creatureSize = null;
+    private Type creatureType = null;
     private List<Object> alignment = Arrays.asList(new Object[2]); //list with fixed enums.size of 2
-    private Map<Sense, Integer> senses;
+    private HashMap<Sense, Integer> senses = new HashMap<>();
     private String description;
     private double challengeRating;
-
     private int hitPointTotal;
     private int speed;
     private int armorClass;
+
+    private HashMap<Condition, Boolean> conditions = new HashMap<>();
 
     public Creature() {
         System.out.println("----- New Creature -----");
@@ -30,7 +27,7 @@ public class Creature extends StatBlock {
         int flag = 0;
 
         System.out.print("Name: ");
-        name = sc.nextLine();
+        setName(sc.nextLine());
 
         try {
             setCreatureSize();
@@ -53,17 +50,29 @@ public class Creature extends StatBlock {
             flag++;
         }
 
-        try{
+        try {
             setSenses();
-        }catch (InvalidSenseException e){
+        } catch (InvalidSenseException e) {
             System.out.println("ERROR: " + e.getMessage());
             flag++;
         }
 
+        System.out.println("Description");
+        setDescription(sc.nextLine());
 
-        if (flag > 0) {
-            System.out.println(flag + "ERRORS detected.");
+        if (!(this instanceof Character)) {
+            System.out.print("Challenge rating: ");
+            setChallengeRating(sc.nextInt());
+
+            System.out.print("Hit point total: ");
+            setHitPointTotal(sc.nextInt());
+
+            System.out.print("Armor class: ");
+            setArmorClass(sc.nextInt());
         }
+
+        if (flag > 0)
+            System.out.println(flag + "ERRORS detected.");
     }
 
 
@@ -151,7 +160,7 @@ public class Creature extends StatBlock {
     }
 
     public void setAlignment() throws InvalidAlignmentException {
-        int x;
+        int x, y;
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Alignment");
@@ -159,22 +168,26 @@ public class Creature extends StatBlock {
         System.out.println("1 - GOOD\t2 - NEUTRAL\t3 - EVIL");
 
         x = sc.nextInt();
+        y = sc.nextInt();
         switch (x) {
-            case 1 -> this.creatureSize = Size.TINY;
-            case 2 -> this.creatureSize = Size.SMALL;
-            case 3 -> this.creatureSize = Size.MEDIUM;
-            case 4 -> this.creatureSize = Size.LARGE;
-            case 5 -> this.creatureSize = Size.HUGE;
-            case 6 -> this.creatureSize = Size.GARGANTUAN;
+            case 1 -> alignment.add(0, Alignment1.LAWFUL);
+            case 2 -> alignment.add(0, Alignment1.NEUTRAL);
+            case 3 -> alignment.add(0, Alignment1.CHAOTIC);
+            default -> throw new InvalidAlignmentException();
+        }
+        switch (y) {
+            case 1 -> alignment.add(1, Alignment2.GOOD);
+            case 2 -> alignment.add(1, Alignment2.NEUTRAL);
+            case 3 -> alignment.add(1, Alignment2.EVIL);
             default -> throw new InvalidAlignmentException();
         }
     }
 
-    public Map<Sense, Integer> getSenses() {
+    public HashMap<Sense, Integer> getSenses() {
         return senses;
     }
 
-    public void setSenses(Map<Sense, Integer> senses) {
+    public void setSenses(HashMap<Sense, Integer> senses) {
         this.senses = senses;
     }
 
@@ -193,25 +206,10 @@ public class Creature extends StatBlock {
                 case 2 -> toggleSense(Sense.DARKVISION);
                 case 3 -> toggleSense(Sense.TREMORSENSE);
                 case 4 -> toggleSense(Sense.TRUESIGHT);
-                case 0 -> break;
+                case 0 -> x = 0;
                 default -> throw new InvalidSenseException();
             }
         } while (x != 0);
-    }
-
-    public void toggleSense(Sense s) {
-        if (senses.containsKey(s)) {
-            senses.remove(s);
-            System.out.println(s + " removed");
-        } else {
-            Scanner sc = new Scanner(System.in);
-            int x;
-
-            System.out.print("Range: ");
-            x = sc.nextInt();
-            senses.put(s, x);
-            System.out.println(s + " added with range of " + x);
-        }
     }
 
     public String getDescription() {
@@ -252,5 +250,21 @@ public class Creature extends StatBlock {
 
     public void setArmorClass(int armorClass) {
         this.armorClass = armorClass;
+    }
+
+
+    public void toggleSense(Sense s) {
+        if (senses.containsKey(s)) {
+            senses.remove(s);
+            System.out.println(s + " removed");
+        } else {
+            Scanner sc = new Scanner(System.in);
+            int x;
+
+            System.out.print("Range: ");
+            x = sc.nextInt();
+            senses.put(s, x);
+            System.out.println(s + " added with range of " + x);
+        }
     }
 }
