@@ -4,13 +4,14 @@ import exceptions.InvalidCreatureSizeException;
 import exceptions.InvalidCreatureTypeException;
 import exceptions.InvalidSenseException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Creature extends StatBlock {
     String name;
     private Size creatureSize = null;
     private Type creatureType = null;
-    private List<Object> alignment = Arrays.asList(new Object[2]); //list with fixed enums.size of 2
+    private Alignement alignment = new Alignement();
     private HashMap<Sense, Integer> senses = new HashMap<>();
     private String description;
     private double challengeRating;
@@ -19,6 +20,9 @@ public class Creature extends StatBlock {
     private int armorClass;
 
     private HashMap<Condition, Boolean> conditions = new HashMap<>();
+    private short exhaustion;
+
+    //Constructor -------------------------------------------------------------------------
 
     public Creature() {
         System.out.println("----- New Creature -----");
@@ -71,10 +75,15 @@ public class Creature extends StatBlock {
             setArmorClass(sc.nextInt());
         }
 
+        for (Condition c : Condition.values())
+            conditions.put(c, false);
+        exhaustion = 0;
+
         if (flag > 0)
             System.out.println(flag + "ERRORS detected.");
     }
 
+    //Setters & Getters -------------------------------------------------------------------
 
     public String getName() {
         return name;
@@ -146,17 +155,17 @@ public class Creature extends StatBlock {
         }
     }
 
-    public List<Object> getAlignment() {
+    public Alignement getAlignment() {
         return alignment;
     }
 
-    public void setAlignment(List<Object> alignment) {
+    public void setAlignment(Alignement alignment) {
         this.alignment = alignment;
     }
 
     public void setAlignent(Alignment1 a1, Alignment2 a2) {
-        this.alignment.add(a1);
-        this.alignment.add(a2);
+        this.alignment.al1 = a1;
+        this.alignment.al2 = a2;
     }
 
     public void setAlignment() throws InvalidAlignmentException {
@@ -170,15 +179,15 @@ public class Creature extends StatBlock {
         x = sc.nextInt();
         y = sc.nextInt();
         switch (x) {
-            case 1 -> alignment.add(0, Alignment1.LAWFUL);
-            case 2 -> alignment.add(0, Alignment1.NEUTRAL);
-            case 3 -> alignment.add(0, Alignment1.CHAOTIC);
+            case 1 -> alignment.al1 = Alignment1.LAWFUL;
+            case 2 -> alignment.al1 = Alignment1.NEUTRAL;
+            case 3 -> alignment.al1 = Alignment1.CHAOTIC;
             default -> throw new InvalidAlignmentException();
         }
         switch (y) {
-            case 1 -> alignment.add(1, Alignment2.GOOD);
-            case 2 -> alignment.add(1, Alignment2.NEUTRAL);
-            case 3 -> alignment.add(1, Alignment2.EVIL);
+            case 1 -> alignment.al2 = Alignment2.GOOD;
+            case 2 -> alignment.al2 = Alignment2.NEUTRAL;
+            case 3 -> alignment.al2 = Alignment2.EVIL;
             default -> throw new InvalidAlignmentException();
         }
     }
@@ -206,7 +215,7 @@ public class Creature extends StatBlock {
                 case 2 -> toggleSense(Sense.DARKVISION);
                 case 3 -> toggleSense(Sense.TREMORSENSE);
                 case 4 -> toggleSense(Sense.TRUESIGHT);
-                case 0 -> x = 0;
+                case 0 -> {}
                 default -> throw new InvalidSenseException();
             }
         } while (x != 0);

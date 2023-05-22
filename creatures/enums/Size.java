@@ -1,31 +1,28 @@
 package enums;
 
-/**
- * The enum Size.
- */
 public enum Size {
     /**
-     * Tiny size.
+     * Ocuppies a 2 1/2 by 2 1/2 ft. space in combat.
      */
     TINY,
     /**
-     * Small size.
+     * Ocuppies a 5 by 5 ft. space in combat.
      */
     SMALL,
     /**
-     * Medium size.
+     * Ocuppies a 5 by 5 ft. space in combat.
      */
     MEDIUM,
     /**
-     * Large size.
+     * Ocuppies a 10 by 10 ft. space in combat.
      */
     LARGE,
     /**
-     * Huge size.
+     * Ocuppies a 15 by 15 ft. space in combat.
      */
     HUGE,
     /**
-     * Gargantuan size.
+     * Ocuppies a 20 by 20 ft. or larger space in combat..
      */
     GARGANTUAN
 }

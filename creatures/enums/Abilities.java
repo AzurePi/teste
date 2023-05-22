@@ -5,27 +5,27 @@ package enums;
  */
 public enum Abilities {
     /**
-     * Strenght abilities.
+     * Natural athleticism, bodily power.
      */
     STRENGHT,
     /**
-     * Dexterity abilities.
+     * Physical agility, reflexes, balance, poise
      */
     DEXTERITY,
     /**
-     * Constitution abilities.
+     * Health, stamina, vital force.
      */
     CONSTITUTION,
     /**
-     * Intelligence abilities.
+     * Mental acuity, information recall, analytical skill.
      */
     INTELLIGENCE,
     /**
-     * Wisdom abilities.
+     * Awareness, intuition, insight.
      */
     WISDOM,
     /**
-     * Charisma abilities.
+     * Confidence, eloquence, leadership.
      */
     CHARISMA
 }
